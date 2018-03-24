@@ -2,15 +2,15 @@
 import math
 import random
 import matplotlib.pyplot as plt
+import numpy as np
 
 def iniPop(pop_size,chrom_length):
     pop=[]
-    for i in range(pop_size):  
-        temp = []  
-        for j in range(chrom_length):  
-            temp.append(random.randint(0, 1))  
-        pop.append(temp)  
-  
+    for i in range(pop_size):
+        chrom=[]
+        for j in range(chrom_length):
+            chrom.append(random.randint(0,1))
+        pop.append(chrom)
     return pop
 
 def decode(pop):
@@ -79,6 +79,7 @@ if __name__=='__main__':
     pop=iniPop(pop_num,chrom_len)
     NG=600
     result=[]
+    arv=[]
     for i in range(NG):
         pop=choose_parent(pop)
         cross(pop,0.9)
@@ -86,7 +87,9 @@ if __name__=='__main__':
         print(decode(pop))
         print(max(cal_adpval(decode(pop))))
         result.append(max(cal_adpval(decode(pop))))
+        arv.append(np.mean(cal_adpval(decode(pop))))
     plt.plot(range(NG),result)
+    plt.plot(range(NG),arv)
     plt.show()
 
 
